@@ -32,7 +32,7 @@
 						<tr>
 							<td><%=b.getNo()%></td>
 							<td>
-								<a href='<%=request.getContextPath()%>/BoardListOneController?no=<%=b.getNo()%>'>
+								<a href='<%=request.getContextPath()%>/BoardOneController?no=<%=b.getNo()%>'>
 									<%=b.getTitle()%>
 								</a>
 							</td>
