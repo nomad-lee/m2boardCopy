@@ -7,38 +7,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import vo.Board;
 import service.BoardService;
 
-
+// C -> M ===> 클라이언트 다른 컨트롤러를 요청하도록 리다이렉트
+// view(jsp)파일들을 WEB-INF보안폴더안으로 이동해서 클라이언트가 View를 직접 호출 못하도록....
+// list select					: C -> M -> V 
+// form	페이지호출					: C -> V
+// action insert/update/delete	: C -> M =====> response.sendRedirect()
 @WebServlet("/AddBoardActionController")
 public class AddBoardActionController extends HttpServlet {
-	
+	// 받아오는 방식에따라 doPost or doGet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		// 유효성 검사 
-		if(request.getParameter("title") == null || request.getParameter("title").equals("") || request.getParameter("content") == null || request.getParameter("content").equals("") ) {
-			response.sendRedirect(request.getContextPath() + "/AddBoardFormController");
-			System.out.println("AddBoardAction 유효성X");
-			return;
-		}
-		// 값 받아오기
+		request.setCharacterEncoding("utf-8");		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+			
+		Board board = new Board();
+		board.setTitle(title);
+		board.setContent(content);
 		
-		int result = 0;
+		// 모델호출
 		BoardService boardService = new BoardService();
-		result = boardService.addBoard(content, title);
+		boardService.addBoardService(board);
 		
-		// 결과
-		if(result == 1) {
-			// 리스트로 이동
-			System.out.println("입력성공");
-			response.sendRedirect(request.getContextPath()+"/BoardListController"); 
-		} else {
-			// 폼이동
-			System.out.println("입력실패");
-			response.sendRedirect(request.getContextPath()+"/AddBoardFormController");
-		}
+		// view가 없으므로
+		response.sendRedirect(request.getContextPath()+"/BoardListController");
 	}
 }
