@@ -4,7 +4,6 @@ C -> M -> V
 C -> M ========> redirct ========> 다른 컨트롤러 호출 
 C -> V
 -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +12,7 @@ C -> V
 </head>
 <body>
    <h1>게시글 입력</h1>
-   <form method="post" action="<%=request.getContextPath()%>/AddBoardActionController" method="post">
+   <form method="post" action="${pageContext.request.contextPath}/AddBoardActionController" method="post">
       <table border="1">
          <tr>
             <td>title</td>

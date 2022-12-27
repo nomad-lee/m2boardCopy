@@ -26,5 +26,4 @@ public class BoardListController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/mvcBoardList.jsp");
 		rd.forward(request, response);
 	}
-
 }
